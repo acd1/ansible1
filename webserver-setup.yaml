@@ -1,0 +1,14 @@
+---
+
+- hosts: test
+  vars:
+    - WelcomeMsg: "Welcome to this demo"
+    - WelcomeMsg2: "Welcome to this demo 2 Another !!"
+
+  tasks:
+    - name: Setup httpd
+      yum: name=httpd state=latest
+    - name: Copy index.html file
+      template: src=index.html.j2  dest=/var/www/html/index.html
+    - name: ensure apache is running (and enable it at boot)
+      service: name=httpd state=started enabled=yes
